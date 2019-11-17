@@ -1,6 +1,6 @@
 {
   "web": {
-    "browser": "http://localhost/mantisbt-1.2.20/"
+    "baseUrl": "http://localhost/mantisbt-1.2.20/"
 
   },
   "webadmin": {
@@ -10,4 +10,3 @@
 }
 
 
-}
