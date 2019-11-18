@@ -17,7 +17,7 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
 
-        self.wd.implicitly_wait(3)
+        self.wd.implicitly_wait(6)
         self.session = SessionHelper(self)
         self.project_mantis = ProjectMantisHelper(self)
         self.base_url = base_url
@@ -31,14 +31,16 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        if not (wd.current_url.endswith("/my_view_page.php") and len(wd.find_element_by_xpath("//a[contains(text(),'Unassigned')]")) > 0):
+        if not (wd.current_url.endswith("/my_view_page.php")):
+            # len(wd.find_element_by_xpath("//a[contains(text(),'Unassigned')]")) > 0
             wd.get(self.base_url)
 
 
     def open_projects_page(self):
         wd = self.wd
-        if not (wd.current_url.endswith("/manage_proj_create_page.php") and len (wd.find_element_by_xpath("//input[@value='Add Project']")) > 0):
+        if not (wd.current_url.endswith("/manage_proj_create_page.php") ):
             #and len(wd.find_elements_by_name("new")) > 0
+            #len(wd.find_element_by_xpath("//input[@value='Add Project']")) > 0
             # переход в раздел "управление"
             wd.find_element_by_link_text("Manage").click()
             # переход в раздел "управление проектами"
@@ -49,8 +51,9 @@ class Application:
 
     def open_manage_projects(self):
         wd = self.wd
-        if not (wd.current_url.endswith("/manage_proj_page.php") and len (wd.find_element_by_xpath("//input[@value='Create New Project']")) > 0):
+        if not (wd.current_url.endswith("/manage_proj_page.php") and wd.find_element_by_xpath("//input[@value='Create New Project']")!=None):
             #and len(wd.find_elements_by_name("new")) > 0
+            # and len (wd.find_element_by_xpath("//input[@value='Create New Project']")) > 0
             # переход в раздел "управление"
             wd.find_element_by_link_text("Manage").click()
             # переход в раздел "управление проектами"

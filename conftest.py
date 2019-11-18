@@ -24,10 +24,11 @@ def app(request):
     global fixture
     browser = request.config.getoption("--browser")
     web_config = load_config(request.config.getoption("--target"))['web']
+    web_login = load_config(request.config.getoption("--target"))['webadmin']
     # получаем доступ к сохраненному параметру через объект request
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config['baseUrl'])
-
+    fixture.session.ensure_login(username=web_login['username'], password=web_login['password'])
     return fixture
 
 
