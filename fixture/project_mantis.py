@@ -60,7 +60,7 @@ class ProjectMantisHelper:
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         wd.find_element_by_xpath("//input[@value='Create New Project']")
-        self.contact_cache = None
+        self.project_cache = None
 
 
     #def select_project_by_index(self):

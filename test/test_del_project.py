@@ -1,3 +1,4 @@
+#задание 25
 from model.project_mantis import ProjectMantis
 import random
 from random import randrange
