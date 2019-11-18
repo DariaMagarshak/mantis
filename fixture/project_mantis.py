@@ -35,20 +35,17 @@ class ProjectMantisHelper:
             self.app.open_manage_projects()
 
             self.project_cache = []
-            #wd.find_element_by_xpath("//tr[class='row-%s']" % index)
-            #for element in wd.find_elements_by_xpath("//tr[class='row']")("//a[contains(@href='manage_proj_edit_page.php?project_id')]"):
+            all_tables = wd.find_elements_by_xpath("//table[@class='width100']")
+            table = all_tables[1]
+            rows = table.find_elements_by_xpath(".//tr[contains(@class, 'row')]")
+            del rows[0]
+            for element in rows:
+                cells = element.find_elements_by_tag_name("td")
+                name_text = cells[0].text
+                description_text = cells[4].text
+               # id = element.find_element_by_xpath("//a[contains(@href,'manage_proj_edit_page.php?project_id')]").get_attribute("project_id")
 
-            #table = wd.find_elements_by_xpath("//tr[class='form-title']")
-            #table = wd.find_elements_by_css_selector("td.form-title, colspan='5'")
-            table = wd.find_elements_by_xpath("//table[@class='width100']")
-            del table[0]
-            for t in table:
-                rows = wd.find_elements_by_xpath("//tr[contains(@class, 'row')]")
-                del rows[0]
-                for element in rows:
-                    cells = element.find_elements_by_tag_name("td")
-                    name_text = cells[0].text
-                    description_text = cells[4].text
-                    self.project_cache.append(ProjectMantis(name=name_text, description=description_text))
-        pr_cache = list(self.project_cache)[:-1]
-        return pr_cache
+               # wd.find_element_by_xpath("//a[@href='edit.php?id=%s']" % id).click()
+                self.project_cache.append(ProjectMantis(name=name_text, description=description_text))
+
+        return list(self.project_cache)

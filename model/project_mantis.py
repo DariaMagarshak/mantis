@@ -9,7 +9,7 @@ class ProjectMantis:
 
 
     def __repr__(self):
-        return "%s:%s:%s:%s" % (self.id, self.name, self.description)
+        return "%s:%s" % (self.name, self.description)
 
 
     def __eq__(self, other):
