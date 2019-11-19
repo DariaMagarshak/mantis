@@ -31,7 +31,8 @@ def app(request, config):
     #web_login = load_config(request.config.getoption("--target"))['webadmin']
     # получаем доступ к сохраненному параметру через объект request
     if fixture is None or not fixture.is_valid():
-        fixture = Application(browser=browser, base_url=config['web']['baseUrl'])
+        #fixture = Application(browser=browser, base_url=config['web']['baseUrl'])
+        fixture = Application(browser=browser, config=config)
     #fixture.session.ensure_login(username=config['webadmin']['username'], password=config['webadmin']['password'])
     return fixture
 
