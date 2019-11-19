@@ -14,6 +14,8 @@ def test_delete_project(app):
     new_list = app.project_mantis.get_project_list()
     old_list[0:1] = []
     assert new_list == old_list
+
+    assert app.soap.can_login(username, password)
     #new_contacts = db.get_contact_list()
     #assert len(old_contacts) - 1 == len(new_contacts)
     #old_contacts.remove(contact)
