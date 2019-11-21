@@ -2,20 +2,37 @@
 from model.project_mantis import ProjectMantis
 import random
 from random import randrange
+import string
 
 def test_delete_project(app):
+    username = random_username("user_", 10)
+    email = username + "@localhost"
+    password = "test"
+    app.james.ensure_user_exists(username, password)
+    app.signup.new_user(username, email, password)
+    assert app.soap.can_login(username, password)
+
 
     if app.project_mantis.get_project_list() == []:
         app.project_mantis.create(ProjectMantis(name="test"))
 
-    old_list = app.project_mantis.get_project_list()
+    #old_list = app.project_mantis.get_project_list()
+    old_list = app.soap.get_list(username, password)
 
     app.project_mantis.delete_project()
-    new_list = app.project_mantis.get_project_list()
+    #new_list = app.project_mantis.get_project_list()
+    new_list = app.soap.get_list(username, password)
     old_list[0:1] = []
     assert new_list == old_list
 
-    assert app.soap.can_login(username, password)
+
+
+def random_username(prefix, maxlen):
+    symbols = string.ascii_letters
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+
+
+
     #new_contacts = db.get_contact_list()
     #assert len(old_contacts) - 1 == len(new_contacts)
     #old_contacts.remove(contact)

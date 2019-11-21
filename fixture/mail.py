@@ -29,6 +29,6 @@ class MailHelper:
                         #закрыть соединение с сохранением
                         pop.quit()
                         return msg.get_payload()
-                    pop.close()
-                    time.sleep(3)
+                    pop.quit()
+                    time.sleep(5)
                 return None
