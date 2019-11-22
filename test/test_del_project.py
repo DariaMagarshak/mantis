@@ -5,23 +5,15 @@ from random import randrange
 import string
 
 def test_delete_project(app):
-    username = random_username("user_", 10)
-    email = username + "@localhost"
-    password = "test"
-    app.james.ensure_user_exists(username, password)
-    app.signup.new_user(username, email, password)
-    assert app.soap.can_login(username, password)
-
-
     if app.project_mantis.get_project_list() == []:
         app.project_mantis.create(ProjectMantis(name="test"))
 
-    #old_list = app.project_mantis.get_project_list()
-    old_list = app.soap.get_list(username, password)
+    old_list = app.project_mantis.get_project_list()
+    #old_list = app.soap.get_list(username, password)
 
     app.project_mantis.delete_project()
-    #new_list = app.project_mantis.get_project_list()
-    new_list = app.soap.get_list(username, password)
+    new_list = app.project_mantis.get_project_list()
+    #new_list = app.soap.get_list(username, password)
     old_list[0:1] = []
     assert new_list == old_list
 
